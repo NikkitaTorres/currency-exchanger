@@ -4,21 +4,23 @@ import './css/styles.css';
 import ExchangeService from './currency-exchanger.js'
 
 function updateResults(result, isError = false) {
-  const resultsDiv = document.querySelector('.results');
+  const resultsContainer = document.getElementById('results-container');
+  const resultsDiv = document.getElementById('results');
+
+  resultsContainer.classList.remove('hidden');
+
   resultsDiv.innerHTML = isError ? `<p class="error">${result}</p>` : `<p>Converted Amount: ${result}</p>`;
 }
 
-// Event listener for form submission
-document.getElementById('usd').addEventListener('submit', function (event) {
+document.getElementById('usd-form').addEventListener('submit', function (event) {
   event.preventDefault();
 
-  // Get user input
   const usdAmount = document.getElementById('usd-amount').value;
   const selectedCurrency = document.getElementById('currencyList').value;
 
-  // Call the ExchangeService to get the converted amount
   ExchangeService.getCurrency(selectedCurrency, usdAmount)
     .then(response => {
+      console.log(response);
       if (response.result === 'error') {
         updateResults(response['error-type'], true);
       } else if (response.conversion_rate === undefined) {
@@ -30,6 +32,6 @@ document.getElementById('usd').addEventListener('submit', function (event) {
     })
     .catch(error => {
       console.error('An error occurred while processing your request:', error);
-      updateResults('An error occurred while processing your request.', true);
+      updateResults(`An error occurred: ${error.message}`, true);
     });
-});
+})
