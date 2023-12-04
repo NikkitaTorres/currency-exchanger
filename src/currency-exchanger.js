@@ -1,17 +1,14 @@
-//SERVICE LOGIC
 export default class ExchangeService {  
   static getCurrency(currency, amount) {
     return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/${currency}/${amount}`)
-      .then(function(response) {
+      .then(response => {
         if (!response.ok) {
-          const errorMessage = `${response.status} ${response.statusText}`;
-          throw new Error(errorMessage);
-        } else {
-          return response.json();
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
-      })      
-      .catch(function(error) {
-        return error;
+        return response.json();
+      })
+      .catch(error => {
+        throw new Error(`Request failed: ${error.message}`);
       });
   }
 }

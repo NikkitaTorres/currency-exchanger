@@ -1,7 +1,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import ExchangeService from './currency-exchanger.js'
+import ExchangeService from './currency-exchanger.js';
 
 function updateResults(result, isError = false) {
   const resultsContainer = document.getElementById('results-container');
@@ -20,7 +20,6 @@ document.getElementById('usd-form').addEventListener('submit', function (event) 
 
   ExchangeService.getCurrency(selectedCurrency, usdAmount)
     .then(response => {
-      console.log(response);
       if (response.result === 'error') {
         updateResults(response['error-type'], true);
       } else if (response.conversion_rate === undefined) {
@@ -31,7 +30,6 @@ document.getElementById('usd-form').addEventListener('submit', function (event) 
       }
     })
     .catch(error => {
-      console.error('An error occurred while processing your request:', error);
       updateResults(`An error occurred: ${error.message}`, true);
     });
-})
+});

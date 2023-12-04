@@ -16,14 +16,16 @@
 
 ## Description
 
+This a project designed to make an API call to https://v6.exchangerate-api.com/ for currency exchange information, from USD to another currency available in the dropdown. The program should correctly convert the amount entered by the user in USD to their selected currency.
+
 ## Setup/Installation Requirements
 
 1. Clone [this](https://github.com/NikkitaTorres/template.git) repository to your desktop.
-2. Run "NPM install" in the console to dowload all dependencies (Babel, ESLint, Webpack).
-3. Build the project with webpack by using the "num run build" command in the console.
-4. Start a development server with the "npm run start" command in the console.
-5. Lint JS files in the src folder with "npm run lint".
-6. You can run tests with Jest using "npm run test".
+2. Create a .env file in the console by entering "touch .env" in the root directory of the project.
+3. Add the .env file to the .gitignore file and commit the project. Inside this file, save your API key and refer to is as "API_KEY=Your API Key" for the project to work correctly.
+4. Run "npm install" in the console to dowload all dependencies (Babel, ESLint, Webpack).
+5. Build the project with webpack by using the "num run build" command in the console.
+6. Start a development server with the "npm run start" command in the console to launch the application.
 
 ## Known Bugs
 
