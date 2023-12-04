@@ -1,24 +1,29 @@
-//placeHolder 
-
-<html lang="en-US">
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Currency Exchange</title>
+    <title>Currency Exchanger</title>
 </head>
 <body>
   <div class="container">
-    <h1>Get Weather Conditions From Anywhere!</h1>
-    <p>To get the current weather conditions for a location, please enter the city name or the city and state separated by a comma. Here are three examples:</p>
-    <pre>
-      Portland
-      Atlanta, Georgia
-      cairo
-    </pre>
-    <form>
-      <label for="location">Enter a location:</label>
-      <input id="location" type="text" name="location">
-      <button type="submit" class="btn-success" id="weatherLocation">Get Current Temperature and Humidity</button>
+    <h2>Enter amount in USD:</h2>
+    <form id="usd-form">
+      <label for="usd-amount">Amount in USD:</label>
+      <input required="" type="number" id="usd-amount" min="0">
+      <h2>Select currency to convert to:</h2>
+      <label for="currencyList">Choose a currency:</label>
+      <select id="currencyList">
+        <option value="aed">United Arab Emirates Dirham</option>
+        <option value="clp">Chilean Peso</option>
+        <option value="eur">Euro</option>
+        <option value="nok">Norwegian Krone</option>
+        <option value="uah">Ukrainian Hryvnia</option>
+      </select>
+      <button type="submit">Submit</button>
     </form>
-    <p id="showResponse"></p>
+    <div id="results-container" class="hidden">
+      <h2>Results:</h2>
+      <div id="results"></div>
+    </div>
   </div>
 </body>
 </html>

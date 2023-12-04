@@ -2,37 +2,34 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import ExchangeService from './currency-exchanger.js'
-//placeHolder
-function getWeather(city) {
-  ExchangeService.getWeather(city)
-    .then(function(response) {
-      if (response.main) {
-        printElements(response, city);
-      } else {
-        printError(response, city);
-      }
-    });
+
+function updateResults(result, isError = false) {
+  const resultsDiv = document.querySelector('.results');
+  resultsDiv.innerHTML = isError ? `<p class="error">${result}</p>` : `<p>Converted Amount: ${result}</p>`;
 }
 
-// UI Logic
-
-function printElements(response, city) {
-  document.querySelector('#showResponse').innerText = `The humidity in ${city} is ${response.main.humidity}%.
-  The temperature in Kelvins is ${response.main.temp} degrees.`;
-}
-
-function printError(error, city) {
-  document.querySelector('#showResponse').innerText = `There was an error accessing the weather data for ${city}: 
-  ${error}.`;
-}
-
-function handleFormSubmission(event) {
+// Event listener for form submission
+document.getElementById('usd').addEventListener('submit', function (event) {
   event.preventDefault();
-  const city = document.querySelector('#location').value;
-  document.querySelector('#location').value = null;
-  getWeather(city);
-}
 
-window.addEventListener("load", function() {
-  document.querySelector('form').addEventListener("submit", handleFormSubmission);
+  // Get user input
+  const usdAmount = document.getElementById('usd-amount').value;
+  const selectedCurrency = document.getElementById('currencyList').value;
+
+  // Call the ExchangeService to get the converted amount
+  ExchangeService.getCurrency(selectedCurrency, usdAmount)
+    .then(response => {
+      if (response.result === 'error') {
+        updateResults(response['error-type'], true);
+      } else if (response.conversion_rate === undefined) {
+        updateResults('Selected currency not found.', true);
+      } else {
+        const convertedAmount = (usdAmount * response.conversion_rate).toFixed(2);
+        updateResults(convertedAmount);
+      }
+    })
+    .catch(error => {
+      console.error('An error occurred while processing your request:', error);
+      updateResults('An error occurred while processing your request.', true);
+    });
 });

@@ -1,7 +1,7 @@
-//BUSINESS/SERVICE LOGIC
+//SERVICE LOGIC
 export default class ExchangeService {  
-  static getCurrency(placeHolder) {
-    return fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/USD`)
+  static getCurrency(currency, amount) {
+    return fetch(`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/${currency}/${amount}`)
       .then(function(response) {
         if (!response.ok) {
           const errorMessage = `${response.status} ${response.statusText}`;
